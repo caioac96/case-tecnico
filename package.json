@@ -1,0 +1,16 @@
+{
+  "name": "case-tecnico",
+  "author": "Caio Carvalho",
+  "version": "1.0.0",
+  "license": "ISC",
+  "description": "Case Técnico",
+  "workspaces": [
+    "apps/frontend",
+    "apps/backend"
+  ],
+  "scripts": {
+    "devB": "npm run dev -w backend",
+    "devF": "npm run dev -w frontend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
