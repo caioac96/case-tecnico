@@ -6,8 +6,16 @@ import environmentRoutes from './routes/environment.routes';
 import logger from './utils/logger';
 import env from './config/env';
 import { AppDataSource } from "./dataSource";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true,
+    })
+);
 
 app.use(express.json());
 app.use('/', commonRoutes);

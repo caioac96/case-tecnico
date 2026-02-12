@@ -9,8 +9,11 @@ export class User {
     @Column()
     name: string
 
+    @Column()
+    passwordHash: string
+
     @Column({ unique: true })
-    registration: number
+    register: string
 
     @Column()
     admin: boolean

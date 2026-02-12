@@ -15,7 +15,6 @@ export class Environment {
     @Column()
     currentOccupancy?: number
 
-
     @CreateDateColumn()
     createdAt: Date
 
