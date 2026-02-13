@@ -5,8 +5,8 @@ import userRoutes from './routes/user.routes';
 import environmentRoutes from './routes/environment.routes';
 import logger from './utils/logger';
 import env from './config/env';
-import { AppDataSource } from "./dataSource";
 import cors from "cors";
+import { AppDataSource } from "./dataSource";
 
 const app = express();
 
