@@ -188,7 +188,7 @@ export default function LoginAndRegister() {
 
     return (
         <ContainerLoginAndRegister>
-            <Image src="public/puc_png.png" style={{ position: "fixed", top: "60px", height: "160px", width: "120px", left: "47vw" }}></Image>
+            <Image src="/puc_png.png" style={{ position: "fixed", top: "60px", height: "160px", width: "120px", left: "47vw" }}></Image>
             <Space vertical>
                 <Switch className="switch-login-register" checkedChildren="Check-in" unCheckedChildren="Login" onChange={onChange} defaultChecked />
             </Space>
