@@ -17,13 +17,12 @@ export default function CreateUser() {
     const { register } = useAuth();
     const [loading, setLoading] = useState(false);
     const { notification } = App.useApp();
-    const [titleCard, setTitleCard] = useState("Criar usuário administrador");
 
     const handleSubmit = async (values: CreateUserFormValues) => {
-        if (values.key != "CR1AD0R") {
+        if (values.key != "CR1AD0R2026") {
             notification.error({
-                title: "Erro",
-                description: "Chave inválida!",
+                title: "Chave inválida!",
+                description: "Entre em contato com um administrador",
                 placement: "topRight",
             });
             return;
@@ -56,7 +55,7 @@ export default function CreateUser() {
     return (
         <ContainerCreateUser>
             <Card style={{ minWidth: 400, margin: "auto" }}>
-                <Title level={4}>{titleCard}</Title>
+                <Title level={4}>Criar usuário administrador</Title>
 
                 <Form<CreateUserFormValues> layout="vertical" onFinish={handleSubmit}>
                     <Form.Item
@@ -87,6 +86,7 @@ export default function CreateUser() {
                         type="primary"
                         htmlType="submit"
                         loading={loading}
+                        style={{width: "100%"}}
                     >
                         Criar
                     </Button>
