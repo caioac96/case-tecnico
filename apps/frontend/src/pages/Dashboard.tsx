@@ -32,6 +32,12 @@ export default function Dashboard() {
 
     useEffect(() => {
         fetchEnvironments();
+
+        const interval = setInterval(() => {
+            fetchEnvironments();
+        }, 15000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const columns = [
@@ -67,7 +73,7 @@ export default function Dashboard() {
                 loading={loading}
                 pagination={false}
             />
-            <Button title='Recarregar informações' icon={<ReloadOutlined />} onClick={() => fetchEnvironments()}></Button>
+            <Button loading={loading} title='Recarregar informações' icon={<ReloadOutlined />} onClick={() => fetchEnvironments()}></Button>
             {modalEnvironmentsOpen && <ModalEnvironmentManagement modalOpen={modalEnvironmentsOpen} setModalOpen={setModalEnvironmentsOpen} />}
             {modalStudentsOpen && <ModalStudentManagement modalOpen={modalStudentsOpen} setModalOpen={setModalStudentsOpen} />}
         </ContainerDashboard>
