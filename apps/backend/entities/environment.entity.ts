@@ -12,7 +12,7 @@ export class Environment {
     @Column()
     occupancyLimit: number
 
-    @Column()
+    @Column({ nullable: true })
     currentOccupancy?: number
 
     @CreateDateColumn()

@@ -1,29 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Form, Input, Typography, App, Button, Space, Switch } from "antd";
+import { Card, Form, Input, Typography, App, Button, Space, Switch, Select } from "antd";
 import { useAuth } from "../context/AuthContext";
 import { ContainerLoginAndRegister } from "./styles";
+import { getEnvironments } from "../api/environment.reqs";
+import type { Environment } from "../components/ModalEnvironmentManagement";
 
 const { Title } = Typography;
 
 interface LoginFormValues {
     register: string;
     password: string;
+    environmentId: string;
 }
 
 export default function LoginAndRegister() {
     const navigate = useNavigate();
     const { user, login } = useAuth();
     const [loading, setLoading] = useState(false);
+    const [dataEnvironments, setDataEnvironments] = useState<Environment[]>([]);
     const [registerError, setRegisterError] = useState(false);
     const { notification } = App.useApp();
     const [titleCard, setTitleCard] = useState("Registrar Entrada/Saída");
     const [textButton, setTextButton] = useState("Registrar entrada");
+    const [selectEnvsVisible, setSelectEnvsVisible] = useState(true);
 
     const handleRegisterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setRegisterError(value.length > 4);
     };
+
+    useEffect(() => {
+        const fetchEnvironments = async () => {
+            setLoading(true);
+            try {
+                const response = await getEnvironments();
+                setDataEnvironments(response.data);
+            } catch (error) {
+                notification.error({
+                    title: "Erro ao buscar ambientes",
+                    description: "",
+                    placement: "topRight",
+                });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEnvironments();
+    }, []);
 
     const handleSubmit = async (values: LoginFormValues) => {
         const { register, password } = values;
@@ -53,7 +78,7 @@ export default function LoginAndRegister() {
 
         notification.success({
             title: "Sucesso!",
-            description: `Seja bem vindo(a) ${result.message}`, 
+            description: `Seja bem vindo(a) ${result.message}`,
             placement: "topRight",
         });
 
@@ -64,6 +89,7 @@ export default function LoginAndRegister() {
         if (!e) {
             if (!user) {
                 setTitleCard("Login");
+                setSelectEnvsVisible(false);
                 setTextButton("Entrar");
             }
             else {
@@ -78,6 +104,7 @@ export default function LoginAndRegister() {
         }
         else {
             setTitleCard("Registrar Entrada/Saída");
+            setSelectEnvsVisible(true);
             setTextButton("Registrar entrada");
         }
     }
@@ -107,6 +134,18 @@ export default function LoginAndRegister() {
                         rules={[{ required: true, message: "A senha é obrigatória" }]}
                     >
                         <Input.Password placeholder="Digite sua senha" />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Ambiente"
+                        name="environmentId"
+                        hidden={!selectEnvsVisible}
+                        rules={[{ required: selectEnvsVisible ? true : false, message: "O ambiente é obrigatório" }]}
+                    >
+                        <Select options={dataEnvironments.map(env => ({
+                            label: env.description,
+                            value: env.id,
+                        }))} placeholder="Selecione o ambiente para check-in" />
                     </Form.Item>
 
                     <Button

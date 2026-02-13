@@ -6,11 +6,11 @@ export class User {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @Column()
+    @Column({nullable: false})
     name: string
 
     @Column()
-    passwordHash: string
+    password: string
 
     @Column({ unique: true })
     register: string

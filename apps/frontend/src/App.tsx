@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import LoginAndRegister from './pages/LoginAndRegister';
 import CreateUser from "./pages/CreateUser";
 import { PrivateRoute } from "./routes/PrivateRoute";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   const { user } = useAuth();

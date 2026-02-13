@@ -24,12 +24,14 @@ app.use('/environments', environmentRoutes);
 
 async function startServer() {
     try {
-        await AppDataSource.initialize();
-
-        app.listen(env.port, () => {
-            logger.info(`Server running on port ${env.port}`);
-        });
-
+        await AppDataSource.initialize()
+            .then(() => {
+                logger.log('Database connected');
+                app.listen(env.port, () => {
+                    logger.info(`Server running on port ${env.port}`);
+                });
+            })
+            .catch(logger.error);
     } catch (error) {
         logger.error('Error run application.', error);
         process.exit(1);

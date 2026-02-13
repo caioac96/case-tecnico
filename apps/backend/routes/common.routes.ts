@@ -4,62 +4,17 @@ import bcrypt from 'bcryptjs';
 import { generateAccessToken, generateRefreshToken } from '../utils/auth';
 import { AppDataSource } from '../dataSource';
 import { User } from '../entities/user.entity';
+import CommonController from '../controllers/common.controller';
 
 const router = Router();
+const commonController = new CommonController();
 
 router.get('/health', (req, res) => {
     logger.info('Server running!');
     res.status(200).json({ status: 'Server running!' });
 });
 
-router.post('/auth/register', async (req, res) => {
-    try {
-        const { name, password } = req.body;
-
-        if (!name || !password) {
-            return res.status(400).json({
-                message: 'Nome e senha são obrigatórios',
-            });
-        }
-
-        const userRepository = AppDataSource.getRepository(User);
-
-        let register: string;
-        let exists = true;
-
-        while (exists) {
-            register = Math.floor(1000 + Math.random() * 9000).toString();
-            const userExists = await userRepository.findOne({
-                where: { register: register },
-            });
-            exists = !!userExists;
-        }
-
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password, salt);
-
-        const user = userRepository.create({
-            name,
-            register: register!,
-            admin: true,
-            passwordHash,
-        });
-
-        await userRepository.save(user);
-
-        return res.status(201).json({
-            id: user.id,
-            register: user.register,
-            name: user.name,
-        });
-
-    } catch (err) {
-        logger.error(err);
-        return res.status(500).json({
-            message: 'Erro no servidor',
-        });
-    }
-});
+router.post('/auth/register', commonController.register);
 
 router.post("/auth/login", async (req, res) => {
     try {
@@ -85,7 +40,7 @@ router.post("/auth/login", async (req, res) => {
             return res.status(403).json({ message: "Acesso negado!" });
         }
 
-        const isValid = await bcrypt.compare(password, user.passwordHash);
+        const isValid = await bcrypt.compare(password, user.password);
 
         if (!isValid) {
             return res.status(401).json({ message: "Credenciais inválidas" });
@@ -138,5 +93,9 @@ router.post("/auth/logout", (req, res) => {
         });
     }
 });
+
+router.post('/checkin', commonController.checkin);
+
+router.post('/checkout', commonController.checkout);
 
 export default router;
