@@ -157,6 +157,7 @@ export default function ModalEnvironmentManagement({
         {
             title: "Ocupação atual",
             dataIndex: "currentOccupancy",
+            render: (value: number) => value || 'Vazio'
         },
         {
             title: "Editar",

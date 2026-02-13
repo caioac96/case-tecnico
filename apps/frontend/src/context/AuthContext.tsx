@@ -140,7 +140,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     useEffect(() => {
         if (!accessToken) return;
-        const interval = setInterval(() => refreshAccessToken(), 14 * 60 * 1000); // 14 minutos
+        const interval = setInterval(() => refreshAccessToken(), 14 * 60 * 1000);
         return () => clearInterval(interval);
     }, [accessToken]);
 

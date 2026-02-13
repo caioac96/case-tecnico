@@ -8,17 +8,17 @@ export class EnvironmentPresence {
     id: string;
 
     @ManyToOne(() => User, user => user.presences, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "userId" })
+    @JoinColumn({ name: "register" })
     user: User;
 
-    @Column()
-    userId: string;
+    @Column({ nullable: false })
+    userRegister: string;
 
     @ManyToOne(() => Environment, env => env.presences, { onDelete: "CASCADE" })
     @JoinColumn({ name: "environmentId" })
     environment: Environment;
 
-    @Column()
+    @Column({ nullable: false })
     environmentId: string;
 
     @Column({ type: "timestamp" })

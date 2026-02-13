@@ -30,13 +30,31 @@ export default class CommonController {
         }
     }
 
-    checkin = async (req: Request<{ id: string }>, res: Response) => {
-        await this.commonService.checkin(req.params.id);
-        return res.json();
+    checkin = async (req: Request, res: Response) => {
+        const { register, password, environmentId } = req.body;
+        if (!register || !password) {
+            return res.status(401).json({ message: "Registro ou senha inválidos" });
+        }
+
+        if (!environmentId) {
+            return res.status(401).json({ message: "environmentId inválido!" });
+        }
+
+        const retCheckin = await this.commonService.checkin(register, password, environmentId);
+        return res.json(retCheckin);
     };
 
-    checkout = async (req: Request<{ id: string }>, res: Response) => {
-        await this.commonService.checkout(req.params.id);
-        return res.json();
+    checkout = async (req: Request, res: Response) => {
+        const { register, password, environmentId } = req.body;
+        if (!register || !password) {
+            return res.status(401).json({ message: "Registro ou senha inválidos" });
+        }
+
+        if (!environmentId) {
+            return res.status(401).json({ message: "environmentId inválido!" });
+        }
+
+        const retCheckout = await this.commonService.checkout(register, password, environmentId);
+        return res.json(retCheckout);
     }
 }

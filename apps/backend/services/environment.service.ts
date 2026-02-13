@@ -10,32 +10,36 @@ export class EnvironmentService {
     }
 
     async createEnvironment(data: Partial<Environment>) {
-        const user = this.environmentRepository.create(data);
-        return await this.environmentRepository.save(user);
+        const environment = this.environmentRepository.create(data);
+        return await this.environmentRepository.save(environment);
     }
 
     async getEnvironments() {
-        return await this.environmentRepository.find();
+        return await this.environmentRepository.find({
+            order: {
+                description: "ASC",
+            },
+        });
     }
 
     async getEnvironment(id: string) {
-        const user = await this.environmentRepository.findOne({
+        const environment = await this.environmentRepository.findOne({
             where: { id },
         });
 
-        if (!user) {
+        if (!environment) {
             throw new Error('Environment not found');
         }
 
-        return user;
+        return environment;
     }
 
     async updateEnvironment(id: string, data: Partial<Environment>) {
-        const user = await this.getEnvironment(id);
+        const environment = await this.getEnvironment(id);
 
-        Object.assign(user, data);
+        Object.assign(environment, data);
 
-        return await this.environmentRepository.save(user);
+        return await this.environmentRepository.save(environment);
     }
 
     async deleteEnvironment(id: string) {

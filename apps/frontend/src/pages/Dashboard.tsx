@@ -67,7 +67,7 @@ export default function Dashboard() {
                 loading={loading}
                 pagination={false}
             />
-            <Button icon={<ReloadOutlined />} onClick={() => fetchEnvironments()}></Button>
+            <Button title='Recarregar informações' icon={<ReloadOutlined />} onClick={() => fetchEnvironments()}></Button>
             {modalEnvironmentsOpen && <ModalEnvironmentManagement modalOpen={modalEnvironmentsOpen} setModalOpen={setModalEnvironmentsOpen} />}
             {modalStudentsOpen && <ModalStudentManagement modalOpen={modalStudentsOpen} setModalOpen={setModalStudentsOpen} />}
         </ContainerDashboard>
