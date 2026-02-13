@@ -4,29 +4,29 @@ import { EnvironmentPresence } from "./environmentPresence.entity"
 @Entity()
 export class User {
     @PrimaryGeneratedColumn("uuid")
-    id: string
+    id!: string
 
     @Column({nullable: false})
-    name: string
+    name!: string
 
     @Column()
-    password: string
+    password!: string
 
     @Column({ unique: true })
-    register: string
+    register!: string
 
     @Column()
-    admin: boolean
+    admin!: boolean
 
     @CreateDateColumn()
-    createdAt: Date
+    createdAt!: Date
 
     @UpdateDateColumn()
-    updatedAt: Date
+    updatedAt!: Date
 
     @DeleteDateColumn()
     deletedAt?: Date
 
     @OneToMany(() => EnvironmentPresence, presence => presence.user)
-    presences: EnvironmentPresence[];
+    presences!: EnvironmentPresence[];
 }

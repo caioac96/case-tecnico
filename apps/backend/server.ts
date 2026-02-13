@@ -31,7 +31,7 @@ async function startServer() {
                     logger.info(`Server running on port ${env.port}`);
                 });
             })
-            .catch(logger.error);
+            .catch((err) => logger.error(err));
     } catch (error) {
         logger.error('Error run application.', error);
         process.exit(1);

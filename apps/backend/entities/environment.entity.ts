@@ -4,26 +4,26 @@ import { EnvironmentPresence } from "./environmentPresence.entity"
 @Entity()
 export class Environment {
     @PrimaryGeneratedColumn("uuid")
-    id: string
+    id!: string
 
     @Column()
-    description: string
+    description!: string
 
     @Column()
-    occupancyLimit: number
+    occupancyLimit!: number
 
     @Column({ nullable: true })
     currentOccupancy?: number
 
     @CreateDateColumn()
-    createdAt: Date
+    createdAt!: Date
 
     @UpdateDateColumn()
-    updatedAt: Date
+    updatedAt!: Date
 
     @DeleteDateColumn()
     deletedAt?: Date
 
     @OneToMany(() => EnvironmentPresence, presence => presence.environment)
-    presences: EnvironmentPresence[];
+    presences!: EnvironmentPresence[];
 }

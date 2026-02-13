@@ -12,5 +12,8 @@
     "devB": "npm run dev -w backend",
     "devF": "npm run dev -w frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2"
   }
 }

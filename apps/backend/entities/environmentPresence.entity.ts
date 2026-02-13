@@ -5,25 +5,25 @@ import { Environment } from "./environment.entity";
 @Entity()
 export class EnvironmentPresence {
     @PrimaryGeneratedColumn("uuid")
-    id: string;
+    id!: string;
 
     @ManyToOne(() => User, user => user.presences, { onDelete: "CASCADE" })
     @JoinColumn({ name: "register" })
-    user: User;
+    user!: User;
 
     @Column({ nullable: false })
-    userRegister: string;
+    userRegister!: string;
 
     @ManyToOne(() => Environment, env => env.presences, { onDelete: "CASCADE" })
     @JoinColumn({ name: "environmentId" })
-    environment: Environment;
+    environment!: Environment;
 
     @Column({ nullable: false })
-    environmentId: string;
+    environmentId!: string;
 
     @Column({ type: "timestamp" })
-    checkInAt: Date;
+    checkInAt!: Date;
 
     @Column({ type: "timestamp", nullable: true })
-    checkOutAt: Date | null;
+    checkOutAt!: Date | null;
 }
