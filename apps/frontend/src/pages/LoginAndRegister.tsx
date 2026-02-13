@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Form, Input, Typography, App, Button, Space, Switch, Select, Modal } from "antd";
+import { Card, Form, Input, Typography, App, Button, Space, Switch, Select, Modal, Image } from "antd";
 import { useAuth } from "../context/AuthContext";
 import { ContainerLoginAndRegister } from "./styles";
 import { getEnvironments } from "../api/environment.reqs";
@@ -188,6 +188,7 @@ export default function LoginAndRegister() {
 
     return (
         <ContainerLoginAndRegister>
+            <Image src="public/puc_png.png" style={{ position: "fixed", top: "60px", height: "160px", width: "120px", left: "47vw" }}></Image>
             <Space vertical>
                 <Switch className="switch-login-register" checkedChildren="Check-in" unCheckedChildren="Login" onChange={onChange} defaultChecked />
             </Space>
@@ -243,11 +244,11 @@ export default function LoginAndRegister() {
                     onClick={() => setModalCheckout(true)}
                     style={{ width: "100%", marginTop: "20px" }}
                 >
-                    Realizar check-out
+                    Registrar check-out
                 </Button>
             </Card>
             <Modal
-                title="Realizar check-out"
+                title="Registrar check-out"
                 open={modalCheckout}
                 onCancel={() => setModalCheckout(false)}
                 onOk={() => checkoutForm.submit()}
